@@ -1,0 +1,8 @@
+{
+  "name": "Hisbalit Simulador",
+  "description": "Visualiza diseños de mosaicos premium en tus propias superficies con una simulación realista, intuitiva y de alta calidad.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

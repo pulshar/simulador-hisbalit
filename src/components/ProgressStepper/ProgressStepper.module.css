@@ -1,0 +1,135 @@
+.headerWrapper {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background-color: rgba(251, 251, 249, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+  gap: 1.5rem;
+}
+
+.brandWordmark {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  svg {
+    max-width: 140px;
+
+    @media (min-width: 540px) {
+      max-width: 160px;
+    }
+
+    height: auto;
+    color: var(--accent-primary);
+  }
+}
+
+.stepperNav {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.stepButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.84375rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.stepButton:not(.stepActive):hover:not(:disabled) {
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+}
+
+.stepButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.stepActive {
+  color: var(--accent-primary);
+  background-color: var(--accent-soft);
+  font-weight: 600;
+  cursor: default;
+}
+
+.stepCompleted {
+  color: var(--text-primary);
+}
+
+.stepIndex {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
+.stepArrow {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  opacity: 0.55;
+  user-select: none;
+}
+
+.actionsZone {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+
+  @media (max-width: 539px) {
+    span {
+      display: none;
+    }
+  }
+}
+
+.mobileProgressRow {
+  display: none;
+  padding: 0.5rem 0 0.65rem;
+  border-top: 1px solid var(--border-hairline);
+}
+
+@media (max-width: 960px) {
+  .stepperNav {
+    display: none;
+  }
+
+  .mobileProgressRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    overflow-x: auto;
+  }
+
+  .topBar {
+    min-height: 56px;
+  }
+
+  .stepButton {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.78rem;
+  }
+}
