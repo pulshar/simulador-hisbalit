@@ -193,7 +193,7 @@ export const CollectionSelector: React.FC<CollectionSelectorProps> = ({
                         onClick={() => {
                           if (!isSelected) onSelectCollection(collection);
                         }}
-                        className={isSelected ? 'btn-secondary' : 'btn-secondary'}
+                        className={isSelected ? 'btn-secondary' : 'btn-secondary btn-w-100 btn-show-text'}
                         style={
                           isSelected
                             ? { pointerEvents: 'none', cursor: 'default' }
