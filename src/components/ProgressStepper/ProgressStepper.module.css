@@ -72,6 +72,7 @@
   background-color: var(--accent-soft);
   font-weight: 600;
   cursor: default;
+  margin-inline: 0.5rem;
 }
 
 .stepCompleted {
@@ -79,17 +80,14 @@
 }
 
 .stepIndex {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-variant-numeric: tabular-nums;
   opacity: 0.8;
 }
 
 .stepArrow {
   color: var(--text-muted);
-  font-size: 0.75rem;
   opacity: 0.65;
   user-select: none;
+  min-width: 12px;
 }
 
 .actionsZone {
