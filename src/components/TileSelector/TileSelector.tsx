@@ -103,7 +103,7 @@ export const TileSelector: React.FC<TileSelectorProps> = ({
     <section className={styles.sectionWrapper} aria-labelledby="step2-heading">
       <div className="studio-container">
         <div className={styles.headerArea}>
-          <span className="text-kicker">Paso 02 · Catálogo de Mosaicos</span>
+          <span className="text-kicker"><span className="number">02</span> · Catálogo de Mosaicos</span>
           <div className={styles.titleRow}>
             <div className="title-group">
               <h1 id="step2-heading" className="heading-display">

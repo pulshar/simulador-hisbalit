@@ -141,6 +141,12 @@ select:focus-visible {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
+
+  .number {
+    color: var(--text-accent);
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
 }
 
 .text-prose {

@@ -22,7 +22,7 @@ export const CollectionSelector: React.FC<CollectionSelectorProps> = ({
     <section className={styles.sectionWrapper} aria-labelledby="step1-heading">
       <div className="studio-container">
         <div className={styles.introHeader}>
-          <span className="text-kicker">Paso 01 · Selección de Colección</span>
+          <span className="text-kicker"><span className="number">01</span> · Selección de Colección</span>
           <div className="title-group">
             <div className={styles.headerTopRow}>
               <h1 id="step1-heading" className="heading-display">
