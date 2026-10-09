@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, RotateCcw, Share2 } from 'lucide-react';
+import { Check, MoveRight, RotateCcw, Share2 } from 'lucide-react';
 import styles from './ProgressStepper.module.css';
 import { Collection, Tile } from '../../types/simulation';
 
@@ -79,7 +79,7 @@ export const ProgressStepper: React.FC<ProgressStepperProps> = ({
           </button>
           {idx < STEPS.length - 1 && (
             <span className={styles.stepArrow} aria-hidden="true">
-              →
+              <MoveRight size={14} aria-hidden="true" />
             </span>
           )}
         </React.Fragment>

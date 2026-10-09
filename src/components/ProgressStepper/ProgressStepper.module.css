@@ -64,7 +64,7 @@
 
 .stepButton:disabled {
   cursor: not-allowed;
-  opacity: 0.55;
+  opacity: 0.65;
 }
 
 .stepActive {
@@ -88,7 +88,7 @@
 .stepArrow {
   color: var(--text-muted);
   font-size: 0.75rem;
-  opacity: 0.55;
+  opacity: 0.65;
   user-select: none;
 }
 

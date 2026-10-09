@@ -149,7 +149,8 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       <div className="studio-container">
         <div className={styles.headerBlock}>
           <span className="text-kicker">
-            <span className="number">03</span> · Fotografía del Espacio ({selectedCollection.name} · {selectedTile.name})
+            {/* <span className="number">03</span> · Fotografía del Espacio ({selectedCollection.name} · {selectedTile.name}) */}
+            <span className="number">03</span> · Fotografía del Espacio
           </span>
           <div
             style={{

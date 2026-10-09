@@ -184,7 +184,7 @@ export const SimulationViewer: React.FC<SimulationViewerProps> = ({
         <div className={styles.headerRow}>
           <div>
             <span className="text-kicker">
-              <span className="number">04</span> · Simulación Arquitectónica y Especificaciones
+              <span className="number">04</span> · Simulación y Especificaciones
             </span>
             <h1 id="step4-heading" className="heading-display" style={{ marginTop: "1.25rem" }}>
               Descubre cómo quedaría {selectedTile.name} en tu espacio
