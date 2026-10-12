@@ -122,52 +122,86 @@ async function startServer() {
         edgeInstructions = `Special Edge / Coping Trim Pieces (Hisbalit EDGE System): Enabled with finish/color "${edgeColorName}". Automatically identify and apply this Hisbalit EDGE finishing piece color along visible step edges (bordes de peldaños), stair nosings, pool corners, coping edges, or curved transitions wherever architecturally appropriate in the photograph.`;
       }
 
-      const prompt = `Edit the provided photograph (Image 1) to realistically visualize the selected mosaic (Image 2) installed on the appropriate visible architectural surface.
 
-Use the provided product/mosaic image (Image 2) as the exact visual reference for the selected mosaic.
+      const prompt = `
+TASK: PHOTOREALISTIC SWIMMING POOL MOSAIC RENOVATION.
 
-PRODUCT TECHNICAL SPECIFICATIONS:
-- Brand & Collection: Hisbalit — Colección ${collectionName}
-- Mosaic Model: ${tileName} (${tileColor} / ${tileTonality} — ${tilePattern})
-- Visual Description: ${tileDescription}
-- Selected Format (Tile Size): ${formattedSize}. Note: 2.5 × 2.5 cm pieces must appear visually smaller and denser than 4 × 4 cm pieces, scaled realistically according to the surface distance and perspective depth.
-- Grout Joint Width: 2 mm (${groutColorName || 'neutral architectural grout'}).
+INPUT IMAGES:
+- IMAGE 1: The original photograph uploaded by the user. This is the image to edit.
+- IMAGE 2: The actual Hisbalit mosaic product reference. Use it as the primary reference for the tile design, colors, pattern and visual material.
+
+PRODUCT:
+- Brand: Hisbalit
+- Collection: ${collectionName}
+- Model: ${tileName}
+- Color: ${tileColor}
+- Tonality: ${tileTonality}
+- Pattern: ${tilePattern}
+- Description: ${tileDescription}
+- Tile format: ${formattedSize}
+- Grout: 2 mm, color ${groutColorName || 'neutral'}
 - ${finishInstructions}
 - ${collectionTraitInstructions}
 - ${edgeInstructions}
 
-STRICT ARCHITECTURAL & PHOTOREALISM INSTRUCTIONS:
-Identify the most appropriate visible surface to tile based on the photograph (such as swimming pool interior basin, pool floor, pool walls, submerged steps/stairs, terrace floor, or architectural wall).
+PRIMARY OBJECTIVE:
+Edit the original photograph to show the existing swimming pool
+finished with the selected mosaic.
 
-Apply the selected mosaic only to that surface.
+SURFACE SELECTION:
+Identify ONLY the interior surfaces belonging to the swimming pool:
+1. The submerged pool floor.
+2. The submerged vertical walls.
+3. Built-in underwater steps, benches and internal ledges.
 
-Preserve the original photograph, camera angle, composition, architecture, geometry and perspective.
+Do NOT tile the terrace, pool coping, outdoor paving, house walls,
+furniture, planters or any other surrounding surface.
 
-The individual mosaic pieces must maintain their correct physical proportions according to the selected product format (${formattedSize}).
+If a surface is not clearly part of the pool interior, leave it unchanged.
 
-Respect the specified grout width (2 mm).
+PRESERVE THE ORIGINAL PHOTOGRAPH:
+Keep the original camera viewpoint, framing, pool outline, dimensions,
+depth, steps, architecture, landscape, furniture and all surrounding objects.
 
-The mosaic pattern must follow the perspective, depth, contours and vanishing lines of the existing surface. If there are stairs, steps, or multiple visible planes (e.g. vertical pool walls and horizontal pool floor), apply the mosaic respecting each plane and its individual 3D perspective—do not treat the entire pool as a single flat surface.
+Do not redesign, reconstruct, replace or regenerate the scene.
+Do not change the shape or position of any architectural element.
 
-Do not apply the mosaic as a flat rectangular overlay.
+MOSAIC FIDELITY:
+Image 2 is the authoritative visual reference for the mosaic.
+Reproduce its actual colors, individual tesserae, color distribution,
+pattern and grout appearance as faithfully as possible.
 
-Make the mosaic appear physically installed on the surface.
+Do not replace the reference with a generic blue mosaic.
+Do not invent a new pattern, simplify the pattern or turn it into
+a uniform color.
 
-If the photograph contains a swimming pool with water, integrate the mosaic visually beneath/inside the water, preserving all existing water reflections, ripples, waves, caustics, shadows, refractions, depth, and existing illumination. The mosaic must look situated inside/under the water where appropriate, never pasted on top of the water.
+The ${formattedSize} tile format determines the apparent physical
+size of the individual pieces. Maintain consistent scale across
+the pool, with smaller apparent pieces in more distant areas.
 
-Preserve the original lighting, shadows, reflections, highlights, water appearance and depth.
+PERSPECTIVE AND SURFACES:
+Fit the mosaic independently to each visible pool surface.
+Follow the perspective, vanishing lines, boundaries and orientation
+of the floor, walls, steps and benches.
+Keep tile rows and grout joints coherent across each plane.
+Do not stretch one flat texture across the entire pool.
 
-Preserve all objects and elements that are not part of the tiled surface.
+UNDERWATER REALISM:
+The mosaic must appear beneath the water, not on top of it.
+Preserve the original waterline, reflections, ripples, highlights,
+shadows, refraction and visible depth wherever possible.
+Allow natural water color and light to affect the appearance of the
+mosaic without destroying its recognizable design.
 
-Do not modify people, furniture, plants, fixtures, architectural elements or decorative objects.
+FINAL CONSTRAINT:
+Change only the pool's interior finish.
+Every pixel outside the pool interior should remain as close as
+possible to the original photograph.
 
-Do not change the camera position or composition.
-
-Do not redesign or reconstruct the environment.
-
-Only change the surface material to the selected mosaic.
-
-The final result must look like a realistic professional photograph of the original space after installing the selected mosaic.`;
+The result should look like a real photograph of the same pool
+after installation of the selected Hisbalit mosaic, not a new
+AI-generated architectural scene.
+`;
 
       const response = await ai.models.generateContent({
         model: 'gemini-3.1-flash-lite-image',

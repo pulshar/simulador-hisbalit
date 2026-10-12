@@ -67,6 +67,9 @@ async function ensureImageBase64(
 /**
  * Calls the backend Gemini image generation/editing endpoint to realistically install
  * the selected mosaic on the appropriate architectural surface of the photograph.
+ *  *
+ * NOTE: Currently the live Gemini API call is commented out so the full wizard flow
+ * (up to Step 04 + EDGE finishing pieces) can be tested without requiring GEMINI_API_KEY.
  */
 export async function generateGeminiMosaicSimulation(
   params: GenerateSimulationRequest
@@ -98,13 +101,27 @@ export async function generateGeminiMosaicSimulation(
 
   const stageTimer1 = window.setTimeout(() => {
     onStageChange?.('Aplicando mosaico...');
-  }, 1800);
+  }, 350);
 
   const stageTimer2 = window.setTimeout(() => {
     onStageChange?.('Preparando simulación...');
-  }, 4500);
+  }, 700);
 
   try {
+    void sourceImageMimeType;
+    void mosaicImageBase64;
+    void mosaicImageMimeType;
+    void collection;
+    void tileFormat;
+    void tileFinish;
+    void groutColorName;
+    void applyEdge;
+    void edgeColorObj;
+
+    /* =========================================================================
+     * LLAMADA A GEMINI COMENTADA TEMPORALMENTE PARA PRUEBAS DE FLUJO COMPLETO
+     * Descomentar este bloque cuando se desee activar la generación con Gemini:
+     * =========================================================================
     const response = await fetch('/api/generate-simulation', {
       method: 'POST',
       headers: {
@@ -144,6 +161,12 @@ export async function generateGeminiMosaicSimulation(
 
     onStageChange?.('Preparando simulación...');
     return data.resultImage;
+    ========================================================================= */
+
+    // Simulación temporal rápida para visualizar el Paso 04 sin llamada a Gemini
+    await new Promise((resolve) => window.setTimeout(resolve, 950));
+    onStageChange?.('Preparando simulación...');
+    return sourceImageBase64;
   } finally {
     window.clearTimeout(stageTimer1);
     window.clearTimeout(stageTimer2);
