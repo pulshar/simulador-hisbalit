@@ -238,7 +238,7 @@ The resulting image must look like a real, professional photograph taken after t
       if (!generatedImageDataUrl) {
         res.status(502).json({
           error:
-            'El modelo Gemini no devolvió una imagen editada en esta solicitud. Por favor, inténtalo de nuevo.',
+            'El modelo no devolvió una imagen editada en esta solicitud. Por favor, inténtalo de nuevo.',
         });
         return;
       }

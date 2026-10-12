@@ -381,7 +381,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                         {generationStage || 'Analizando fotografía...'}
                       </div>
                       <p className={styles.stageSubtext}>
-                        Gemini está identificando la superficie arquitectónica de la imagen y aplicando el mosaico {selectedTile.name} ({tileFormat === '2.5x2.5' ? '2,5 × 2,5 cm' : '4 × 4 cm'} · {tileFinish}) conservando la iluminación, el agua y la perspectiva original.
+                        Identificando la superficie de la imagen y aplicando el mosaico {selectedTile.name} ({tileFormat === '2.5x2.5' ? '2,5 × 2,5 cm' : '4 × 4 cm'} · {tileFinish}) conservando la iluminación, el agua y la perspectiva original.
                       </p>
                     </div>
                   )}

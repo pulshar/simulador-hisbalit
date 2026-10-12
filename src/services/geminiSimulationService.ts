@@ -189,7 +189,7 @@ export async function generateGeminiMosaicSimulation(
     if (!response.ok || !data.resultImage) {
       throw new Error(
         data.error ||
-        'No se pudo generar la simulación con Gemini. Verifica tu conexión o configuración de API Key.'
+        'No se pudo generar la simulación. Verifica tu conexión o configuración de API Key.'
       );
     }
 
