@@ -170,7 +170,7 @@ Produce one convincing, high-quality photographic edit of the original image. Re
 `;
 
         const targetModel =
-            process.env.GEMINI_IMAGE_MODEL || 'gemini-2.5-flash-image';
+            process.env.GEMINI_IMAGE_MODEL || 'gemini-3-pro-image-preview';
 
         const response = await ai.models.generateContent({
             model: targetModel,
