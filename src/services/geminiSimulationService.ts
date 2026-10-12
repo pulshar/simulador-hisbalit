@@ -24,22 +24,61 @@ export interface GenerateSimulationRequest {
   onStageChange?: (stage: SimulationProgressStage) => void;
 }
 
+export type GeminiAspectRatio = '16:9' | '4:3' | '1:1' | '3:4' | '9:16';
+
+function calculateClosestAspectRatio(width: number, height: number): GeminiAspectRatio {
+  const r = width / height;
+  const options: Array<{ ratio: GeminiAspectRatio; val: number }> = [
+    { ratio: '16:9', val: 16 / 9 }, // ~1.778
+    { ratio: '4:3', val: 4 / 3 },   // ~1.333
+    { ratio: '1:1', val: 1.0 },     // 1.0
+    { ratio: '3:4', val: 3 / 4 },   // ~0.75
+    { ratio: '9:16', val: 9 / 16 }, // ~0.5625
+  ];
+  let best = options[0];
+  let minDiff = Math.abs(r - best.val);
+  for (const opt of options) {
+    const diff = Math.abs(r - opt.val);
+    if (diff < minDiff) {
+      minDiff = diff;
+      best = opt;
+    }
+  }
+  return best.ratio;
+}
+
+export interface ProcessedImageResult {
+  dataUrl: string;
+  mimeType: string;
+  width: number;
+  height: number;
+  aspectRatio: GeminiAspectRatio;
+}
+
 /**
- * Loads any image URL or Data URL into an HTMLImageElement, resizes it to max 2048px
- * if needed, and returns a normalized base64 Data URL ready for the Gemini API.
+ * Loads any image URL or Data URL into an HTMLImageElement, resizes it if needed,
+ * and returns a normalized base64 Data URL with high-fidelity encoding:
+ * - Pool scene photographs: JPEG with 0.95 quality at optimal 1536px dimension.
+ * - Mosaic reference samples: lossless PNG to preserve 2 mm grout lines, tessera edges and true pigment colors.
  */
 async function ensureImageBase64(
   imageSrc: string,
-  maxDim = 2048
-): Promise<{ dataUrl: string; mimeType: string }> {
+  maxDim = 1536,
+  outputFormat: 'image/jpeg' | 'image/png' = 'image/jpeg',
+  quality = 0.95
+): Promise<ProcessedImageResult> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     if (!imageSrc.startsWith('data:')) {
       img.crossOrigin = 'anonymous';
     }
     img.onload = () => {
-      let w = img.naturalWidth || img.width || 1280;
-      let h = img.naturalHeight || img.height || 800;
+      const origW = img.naturalWidth || img.width || 1280;
+      const origH = img.naturalHeight || img.height || 800;
+      const aspectRatio = calculateClosestAspectRatio(origW, origH);
+
+      let w = origW;
+      let h = origH;
       if (Math.max(w, h) > maxDim) {
         const ratio = maxDim / Math.max(w, h);
         w = Math.round(w * ratio);
@@ -53,9 +92,20 @@ async function ensureImageBase64(
         reject(new Error('No se pudo inicializar el contexto de imagen en el navegador.'));
         return;
       }
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(img, 0, 0, w, h);
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-      resolve({ dataUrl, mimeType: 'image/jpeg' });
+      const dataUrl =
+        outputFormat === 'image/png'
+          ? canvas.toDataURL('image/png')
+          : canvas.toDataURL('image/jpeg', quality);
+      resolve({
+        dataUrl,
+        mimeType: outputFormat,
+        width: origW,
+        height: origH,
+        aspectRatio,
+      });
     };
     img.onerror = () => {
       reject(new Error('No se pudo cargar la fotografía seleccionada.'));
@@ -85,11 +135,11 @@ export async function generateGeminiMosaicSimulation(
 
   onStageChange?.('Analizando fotografía...');
 
-  const { dataUrl: sourceImageBase64, mimeType: sourceImageMimeType } =
-    await ensureImageBase64(sourceImage);
+  // Pool photograph: optimal 1536px resolution with aspect ratio detection
+  const sourceImageInfo = await ensureImageBase64(sourceImage, 1536, 'image/jpeg', 0.95);
 
-  const { dataUrl: mosaicImageBase64, mimeType: mosaicImageMimeType } =
-    await ensureImageBase64(tile.image);
+  // Mosaic texture reference: lossless PNG to preserve 2 mm grout lines and precise tessera colors
+  const mosaicImageInfo = await ensureImageBase64(tile.image, 1024, 'image/png');
 
   const groutObj = GROUT_COLORS.find((g) => g.hex.toLowerCase() === groutColor.toLowerCase());
   const groutColorName = groutObj ? groutObj.name : 'Junta 2mm neutra';
@@ -111,10 +161,11 @@ export async function generateGeminiMosaicSimulation(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        sourceImageBase64,
-        sourceImageMimeType,
-        mosaicImageBase64,
-        mosaicImageMimeType,
+        sourceImageBase64: sourceImageInfo.dataUrl,
+        sourceImageMimeType: sourceImageInfo.mimeType,
+        aspectRatio: sourceImageInfo.aspectRatio,
+        mosaicImageBase64: mosaicImageInfo.dataUrl,
+        mosaicImageMimeType: mosaicImageInfo.mimeType,
         collectionName: collection.name,
         collectionId: collection.id,
         tileName: tile.name,
@@ -138,7 +189,7 @@ export async function generateGeminiMosaicSimulation(
     if (!response.ok || !data.resultImage) {
       throw new Error(
         data.error ||
-          'No se pudo generar la simulación con Gemini. Verifica tu conexión o configuración de API Key.'
+        'No se pudo generar la simulación con Gemini. Verifica tu conexión o configuración de API Key.'
       );
     }
 
