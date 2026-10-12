@@ -34,7 +34,7 @@ export const CollectionSelector: React.FC<CollectionSelectorProps> = ({
               </p>
             </div>
             <p className="text-prose">
-              Explora nuestras colecciones de mosaico ecológico para piscinas, spas y superficies arquitectónicas. Selecciona una línea para descubrir sus diseños, formatos y tonalidades de agua.
+              Explora nuestras colecciones de mosaico ecológico para piscinas y spas.<br /> Selecciona una línea para descubrir sus diseños, formatos y tonalidades de agua.
             </p>
           </div>
           {selectedCollection && (

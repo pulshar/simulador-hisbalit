@@ -166,7 +166,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
                 Sube una fotografía del espacio
               </h1>
               <p className="text-prose">
-                Sube una fotografía de tu piscina, terraza, baño o pared, o elige una imagen de muestra. Al pulsar «Generar simulación», Gemini identificará automáticamente la superficie arquitectónica adecuada y aplicará el mosaico seleccionado respetando iluminación, agua y perspectiva.
+                Sube una fotografía de tu piscina o spa, o elige una imagen de muestra. Al pulsar «Generar simulación», el sistema identificará automáticamente la superficie adecuada y aplicará el mosaico seleccionado respetando iluminación, agua y perspectiva.
               </p>
             </div>
 
