@@ -809,18 +809,18 @@ export const DEMO_PHOTOGRAPHS: DemoPhotograph[] = [
     id: 'demo-mediterranean',
     title: 'Villa Mediterránea — Vaso Principal',
     subtitle: 'Piscina exterior con solárium de piedra natural e iluminación diurna',
-    imageUrl: '/assets/images/demo_pool_mediterranean_1791286884049.jpg',
+    imageUrl: '/assets/images/demo_pool_mediterranean.jpg',
   },
   {
     id: 'demo-spa',
     title: 'Spa Interior Arquitectónico',
     subtitle: 'Vaso de calma con luz cenital y geometría rectilínea',
-    imageUrl: '/assets/images/demo_pool_spa_1791286895620.jpg',
+    imageUrl: '/assets/images/demo_pool_spa.jpg',
   },
   {
     id: 'demo-terrace',
     title: 'Patio Contemporáneo — Muro y Lámina de Agua',
     subtitle: 'Superficie vertical y vaso con sombras arquitectónicas',
-    imageUrl: '/assets/images/demo_pool_terrace_1791286906986.jpg',
+    imageUrl: '/assets/images/demo_pool_terrace.jpg',
   },
 ];
