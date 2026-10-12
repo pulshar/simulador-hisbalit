@@ -110,33 +110,64 @@ export default async function handler(
             ? `Apply Hisbalit EDGE rounded safety bullnose pieces along all exposed underwater step front edges, stair nosings and bench perimeters in color "${edgeColorName}". Keep the flat treads and risers tiled with the primary mosaic.`
             : 'Hisbalit EDGE disabled. Maintain continuous planar mosaic tiling across steps and edges.';
 
-        const prompt = `TASK: HIGH-PRECISION PHOTOREALISTIC RENOVATION OF A SWIMMING POOL MOSAIC.
+        const prompt = `
+PHOTOREALISTIC ARCHITECTURAL POOL RENOVATION — STRICT IMAGE EDITING.
 
-INPUT REFERENCES:
-IMAGE 1 is the original pool photograph.
-IMAGE 2 is the authoritative Hisbalit mosaic sample. Match its tessera colors, distribution, finish and grout.
+PRIMARY OBJECTIVE
+Edit Image 1, the original pool photograph, by realistically applying the exact Hisbalit mosaic shown in Image 2. The final result must look like a genuine photograph taken after the pool renovation, never like CGI, a 3D render, a drawing, or an AI illustration.
 
-PRODUCT SPECIFICATION:
-Brand: Hisbalit Mosaico Ecológico, 100% recycled vitreous glass.
-Collection: ${collectionName}
-Model: ${tileName}
-Primary color: ${tileColor}
-Tonality: ${tileTonality}
-Pattern / blend: ${tilePattern}
-Description: ${tileDescription}
-Tile format: ${formattedSize}
-${groutInstructions}
-${finishInstructions}
-${collectionTraitInstructions}
-${edgeInstructions}
+1. PRESERVE THE ORIGINAL PHOTOGRAPH
+- Use Image 1 as the immutable photographic foundation.
+- Preserve the exact pool geometry, dimensions, perspective, camera position, lens characteristics, and framing.
+- Keep all existing steps, corners, curves, drains, waterlines, coping, decking, furniture, vegetation, buildings, and background unchanged.
+- Do not redesign, enlarge, shrink, straighten, or reconstruct any architectural element.
+- Modify only the pool surfaces that should receive the mosaic.
 
-CRITICAL REQUIREMENTS:
-1. Apply the mosaic to 100% of the submerged pool basin: foreground steps and ledges, shallow platforms, the entire deep pool floor and all submerged perimeter walls.
-2. The entire basin is one continuous pool. Do not add dividing walls, partitions, barriers or raised curbs. Preserve the original pool geometry.
-3. Do not tile or modify the sandstone coping, terrace, wooden deck, furniture, sunbeds, umbrellas, house, garden or any other surroundings.
-4. Preserve the exact camera angle, perspective, lighting, waterline, ripples and natural underwater caustics.
-5. Tesserae must follow the pool's true perspective, remain aligned with the pool edges and become naturally smaller with distance. Keep the grout grid crisp and visible.
-6. Produce a realistic professional photograph of the pool renovated with the specified Hisbalit material. Change only the pool's interior surfaces.`;
+2. APPLY THE EXACT MOSAIC
+- Image 2 is the authoritative reference for the mosaic's appearance.
+- Reproduce its actual colour, colour variation, texture, pattern, finish, and visual character as faithfully as possible.
+- Do not invent a new pattern, add decorative motifs, shift the hue, or introduce colours absent from the reference.
+- Use ${formattedSize} mosaic pieces with realistic, consistent proportions.
+- Keep the tiles aligned with the actual three-dimensional pool surfaces and their perspective.
+- Tile dimensions must visually diminish with distance and follow the geometry of steps, walls, corners, and the pool floor.
+- Render fine, consistent grout joints. Avoid oversized tiles, irregular spacing, floating pieces, warped grids, and repeated artificial patterns.
+
+3. REALISTIC WATER AND OPTICS
+- Preserve the existing water level, waterline, and overall scene lighting.
+- Where water is present, show believable transparency, depth-dependent colour, natural reflections, subtle refraction, and realistic light scattering.
+- The mosaic must remain perceptible beneath the water, with optical distortion appropriate to its depth.
+- Add natural caustic light patterns only where physically plausible and consistent with the original lighting.
+- Reflections must follow the existing environment and light direction. Do not add imaginary objects or reflections.
+- Avoid neon-blue water, uniform artificial colour, excessive clarity, plastic-like surfaces, and exaggerated gloss.
+
+4. PHYSICAL MATERIAL AND FINISH
+- Respect the specified mosaic finish: ${finishInstructions}
+- Grout appearance: ${groutInstructions}
+- Preserve the material characteristics of the selected collection: ${collectionTraitInstructions}
+- The mosaic must feel like a real installed ceramic or glass mosaic, with subtle surface irregularities and physically plausible light response.
+- Keep the grout colour consistent with the selected specification.
+
+5. EDGES AND BOUNDARIES
+- ${edgeInstructions}
+- Make every transition between tiled and untiled areas clean, physically plausible, and accurately aligned with the pool boundaries.
+- Never spill mosaic onto the coping, terrace, walls outside the pool, or surrounding objects.
+
+6. PHOTOGRAPHIC INTEGRATION
+- Match the original image's exposure, white balance, contrast, sharpness, grain, shadows, and ambient lighting.
+- Maintain realistic local contrast and natural colour relationships.
+- Preserve fine details and avoid excessive smoothing, oversharpening, halos, seams, or blurry boundaries.
+- The result must be visually coherent at both full-image and close-up viewing sizes.
+
+STRICT NEGATIVE CONSTRAINTS
+Do not change the architecture, camera angle, water level, surrounding environment, or objects.
+Do not add people, furniture, plants, lights, decorative elements, or new pool features.
+Do not create a synthetic showroom image or an idealized redesign.
+Do not alter the specified mosaic to make the image more attractive.
+Do not tile surfaces that are outside the intended pool interior.
+
+FINAL QUALITY REQUIREMENT
+Produce one convincing, high-quality photographic edit of the original image. Realism, architectural fidelity, and exact mosaic appearance take priority over artistic interpretation.
+`;
 
         const targetModel =
             process.env.GEMINI_IMAGE_MODEL || 'gemini-2.5-flash-image';
